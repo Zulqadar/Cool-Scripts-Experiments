@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <section id="search">
+            <table class="table table-bordered">
+                <tr>
+                    <td>Select Search Terms</td>
+                    <td>
+                        <select id="terms" class="form-control" multiple="multiple">
+                            <option value="csharp">csharp</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="SQL">SQL</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Search Engine</td>
+                    <td>
+                        <select id="engines" class="form-control">
+                            <option value="Google" data-searchurl="https://google.com/search?q=">Google</option>
+                            <option value="Bing" data-searchurl="https://bing.com/search?q=">Bing</option>
+                            <option value="Yahoo" data-searchurl="https://search.yahoo.com/search?p=">Yahoo</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" id="btnSearch" onclick="searchTerms()">Search</button>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <script>
+            function searchTerms() {
+                var selectedTerms = new Array();
+                var arrOption = document.querySelectorAll("#terms option");
+                arrOption.forEach(function (item, index) {
+                    if (item.selected) {
+                        selectedTerms.push(item.value);
+                    }
+                })
+        
+                var engineURL = new Array();
+                var engine = document.querySelectorAll("#engines option");
+                engine.forEach(function (item, index) {
+                    if (item.selected) {
+                        engineURL.push(item.getAttribute("data-searchURL"));
+                    }
+                })
+        
+                if (selectedTerms.length > 0) {
+                    for (var i = 0; i < selectedTerms.length; i++) {
+                        var redirectWindow = window.open(engineURL[0] + selectedTerms[i], '_blank');
+                        redirectWindow.location;
+                    }
+                } else {
+                    alert("Please Select Terms");
+                }
+            }
+        </script>
+
+    </body>
+</html>
