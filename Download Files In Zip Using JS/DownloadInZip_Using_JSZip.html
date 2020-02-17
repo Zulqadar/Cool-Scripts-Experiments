@@ -1,0 +1,37 @@
+<!Doctype html>
+<html>
+   <head>
+      <script src="JSZip.js"></script>
+   </head>
+   <body>
+      <a href="#fileURL" target="_blank">Open</a><br>
+      <button type="button" id="btnDownload" onclick="DonwloadInZip()">Download in Zip</button>
+      <script>
+         function DonwloadInZip(){
+             var urls = [
+             'fileURL'
+             ];
+         createFile(urls);
+         
+         }
+         async function createFile(urlArr){
+             let response=await fetch('http://apps.rgipt.ac.in/admission/Content/College/101/Student/2020/OD_716793202002021650575401.jpg');
+             let data=await response.blob();
+             let metaData={
+                 type:'image/jpeg'
+             };
+             let file=new File([data],'test.jpg',metaData);
+             var zip = new JSZip();
+         for (var i = 0; i < 5; i++) {
+         var txt = 'hello';
+         zip.file("file" + i + ".jpg", file);
+         }
+         zip.generateAsync({
+         type: "base64"
+         }).then(function(content) {
+         window.location.href = "data:application/zip;base64," + content;
+         });
+         }
+      </script>
+   </body>
+</html>
